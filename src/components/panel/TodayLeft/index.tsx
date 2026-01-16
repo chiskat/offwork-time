@@ -13,7 +13,9 @@ export default function TodayLeft() {
     immediate: true,
   })
 
-  if (todayLeft.status === TodayLeftStatus.BEFORE) {
+  if (todayLeft.status === TodayLeftStatus.NOT_WORKDAY) {
+    return <TextDisplay>{'今天是休息日！ 享受吧 ~'}</TextDisplay>
+  } else if (todayLeft.status === TodayLeftStatus.BEFORE) {
     return <TextDisplay>{'别急！ 还没到上班时间呢 ~'}</TextDisplay>
   } else if (todayLeft.status === TodayLeftStatus.OFFWORK) {
     return <TextDisplay>{'下班啦！ 尽情享受生活吧 ~'}</TextDisplay>
