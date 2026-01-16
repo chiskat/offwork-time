@@ -1,22 +1,13 @@
 import { SettingOutlined } from '@ant-design/icons'
 import { Button, Space } from 'antd'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
 import SalaryDayLeft from '@/components/panel/SalaryDayLeft'
 import TodayLeft from '@/components/panel/TodayLeft'
 import WeekendLeft from '@/components/panel/WeekendLeft'
-import useSettings from '@/hooks/useSettings'
 
 export default function Home() {
   const navigate = useNavigate()
-
-  const backgroundIndex = useSettings(s => s.backgroundIndex)
-
-  useEffect(() => {
-    document.body.style.backgroundImage =
-      `url('` + require(`@/assets/img/repeat${backgroundIndex}.jpg`) + `')`
-  }, [backgroundIndex])
 
   return (
     <div className="p-4">
