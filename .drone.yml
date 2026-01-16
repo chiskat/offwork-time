@@ -18,15 +18,14 @@ trigger:
 
 steps:
   - name: build
-    image: paperplanecc/baseline-node20:2025.11.30
+    image: chiskat/baseline-node20:2026.1.14
     volumes:
       - name: pnpm-cache
         path: /offwork-time/.pnpm-store
     commands:
       - pnpm i
-      - pnpm build
+      - pnpm run build
     environment:
-      CI: false
       GENERATE_SOURCEMAP: false
 
   - name: deploy-upload-cdn

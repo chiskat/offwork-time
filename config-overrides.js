@@ -1,46 +1,28 @@
-const {
-  override,
-  fixBabelImports,
-  addWebpackAlias,
-  addLessLoader,
-  addBabelPlugins,
-  addWebpackPlugin,
-} = require('customize-cra')
-const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin')
-const noop = require('lodash/identity')
+const { override, addWebpackModuleRule, addWebpackAlias } = require('customize-cra')
+const path = require('path')
+
+const noop = input => input
 
 module.exports = {
   webpack: override(
-    addLessLoader({
-      lessOptions: {
-        noIeCompat: true,
-        javascriptEnabled: true,
-      },
+    addWebpackAlias({ '@': path.resolve(__dirname, './src/') }),
+
+    addWebpackModuleRule({
+      test: /\.less$/i,
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'less-loader',
+          options: { lessOptions: { noIeCompat: true, javascriptEnabled: true } },
+        },
+      ],
     }),
 
-    addWebpackAlias({ '@': 'src/' }),
-
-    addBabelPlugins(['@emotion']),
-
-    fixBabelImports('import', {
-      libraryName: 'antd',
-      libraryDirectory: 'es',
-      style: true,
-    }),
-
-    addWebpackPlugin(
-      new HtmlWebpackTagsPlugin({
-        usePublicPath: false,
-        links: [
-          { path: 'https://cdn.paperplane.cc', attributes: { rel: 'dns-prefetch' } },
-          { path: 'https://cdn.paperplane.cc', attributes: { rel: 'preconnect' } },
-        ],
-      })
-    ),
-
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV === 'production' && process.env.REACT_APP_CDN_URL
       ? function setPublicPath(config) {
-          config.output.publicPath = '//cdn.paperplane.cc/paperplane-offwork-time/'
+          config.output.publicPath =
+            process.env.REACT_APP_CDN_URL + process.env.REACT_APP_CDN_SUBPATH
 
           return config
         }
