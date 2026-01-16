@@ -4,9 +4,6 @@ import { createRoot } from 'react-dom/client'
 
 import App from './app'
 
-import '@/assets/global.less'
-import '@/assets/tailwind.css'
-
 setDefaultOptions({ locale: zhCN, weekStartsOn: 1 })
 
 const root = createRoot(document.getElementById('root') as HTMLElement)

@@ -1,8 +1,10 @@
 import { ConfigProvider } from 'antd'
-import 'antd/dist/antd.less'
 import zhCN from 'antd/lib/locale/zh_CN'
 
 import RouterEntry from './RouteEntry'
+
+import '@/assets/global.less'
+import '@/assets/tailwind.css'
 
 function App() {
   return (
