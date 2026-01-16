@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "craco start",
-    "start": "craco start",
-    "build": "craco build",
+    "dev": "dotenv craco start",
+    "start": "dotenv craco start",
+    "build": "dotenv craco build",
     "test": "craco test",
     "eject": "craco eject",
     "check-types": "tsc --noEmit",
@@ -24,6 +24,7 @@
     "craco-antd": "^2.0.0",
     "css-loader": "^6.11.0",
     "date-fns": "^4.1.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "8.47.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-react-app": "^7.0.1",

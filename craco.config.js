@@ -1,23 +1,21 @@
 const path = require('path')
 const CracoAntDesignPlugin = require('craco-antd')
-
-let publicPath = undefined
-
-if (process.env.NODE_ENV === 'production') {
-  publicPath = process.env.REACT_APP_CDN_URL + (process.env.REACT_APP_CDN_SUBPATH || '')
-  if (!publicPath.endsWith('/')) {
-    publicPath = publicPath + '/'
-  }
-}
+const { whenProd } = require('@craco/craco')
 
 /** @type {import('@craco/types').CracoConfig} */
-module.exports = {
-  webpack: {
-    alias: {
-      '@': path.resolve(__dirname, './src/'),
+module.exports = () => {
+  return {
+    webpack: {
+      alias: {
+        '@': path.resolve(__dirname, './src/'),
+      },
+      configure: {
+        output: {
+          publicPath: whenProd(() => process.env.CDN_PREFIX),
+        },
+      },
     },
-    configure: { output: { publicPath } },
-  },
 
-  plugins: [{ plugin: CracoAntDesignPlugin }],
+    plugins: [{ plugin: CracoAntDesignPlugin }],
+  }
 }
