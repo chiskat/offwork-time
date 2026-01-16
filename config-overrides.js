@@ -21,8 +21,11 @@ module.exports = {
 
     process.env.NODE_ENV === 'production' && process.env.REACT_APP_CDN_URL
       ? function setPublicPath(config) {
-          config.output.publicPath =
-            process.env.REACT_APP_CDN_URL + process.env.REACT_APP_CDN_SUBPATH
+          let publicPath = process.env.REACT_APP_CDN_URL + (process.env.REACT_APP_CDN_SUBPATH || '')
+          if (!publicPath.endsWith('/')) {
+            publicPath = publicPath + '/'
+          }
+          config.output.publicPath = publicPath
 
           return config
         }
