@@ -7,14 +7,14 @@ workspace:
 volumes:
   - name: webroot
     host:
-      path: /root/www
+      path: /root/container-config/www
   - name: pnpm-cache
     host:
-      path: /root/.pnpm-cache
+      path: /root/container-cache/.pnpm-cache
 
 trigger:
   branch:
-    - master
+    - main
 
 steps:
   - name: build
