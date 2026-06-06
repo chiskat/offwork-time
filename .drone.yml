@@ -1,9 +1,6 @@
 kind: pipeline
 name: default
 
-workspace:
-  path: /offwork-time
-
 volumes:
   - name: webroot
     host:
@@ -17,16 +14,33 @@ trigger:
     - main
 
 steps:
-  - name: build
-    image: chiskat/baseline-node20:2026.1.14
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    settings:
+      restore: true
+      mount:
+        - /drone/src/.pnpm-store
     volumes:
       - name: pnpm-cache
-        path: /offwork-time/.pnpm-store
+        path: /cache
+
+  - name: build
+    image: chiskat/baseline-node20:2026.1.14
     commands:
       - pnpm i
       - pnpm run build
     environment:
       GENERATE_SOURCEMAP: false
+
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    settings:
+      rebuild: true
+      mount:
+        - /drone/src/.pnpm-store
+    volumes:
+      - name: pnpm-cache
+        path: /cache
 
   - name: deploy-upload-cdn
     image: plugins/s3
