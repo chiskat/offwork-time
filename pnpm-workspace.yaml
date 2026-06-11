@@ -1,7 +1,4 @@
-onlyBuiltDependencies:
-  - core-js
-  - core-js-pure
-  - ejs
-  - es5-ext
-  - fsevents
-  - less
+allowBuilds:
+  core-js: true
+  core-js-pure: true
+  less: true
